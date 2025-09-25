@@ -24,7 +24,7 @@
 
 .main-bg {
   height: 400px;
-  background-image: url("assets/image/main-bg.jpg");
+  background-image: url("assets/image/main-bg.png");
   background-size: cover;
   background-position: center;
 }
