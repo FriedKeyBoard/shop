@@ -1,5 +1,16 @@
 import { Col } from 'react-bootstrap';
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import styled from "styled-components";
+
+let YellowBtn = styled.button`
+  background: ${ props => props.bg};
+  color : ${ props => props.bg == 'blue' ? 'white' : 'black'};;
+  padding: 10px;
+`
+
+// let NewBtn = styled.button(YellowBtn)`
+// `
+
 let productData = [
     {
         id : 1,
@@ -59,16 +70,20 @@ function Product(props){
 }
 
 function ProductDetail(props){
+
+    let {id} = useParams();
+
     return(
         <div className="container">
+            <YellowBtn bg={"blue"}>button</YellowBtn>
             <div className="row">
                 <div className="col-md-6">
-                    <img src={`/image/product${props.id}.png`} width="100%" />
+                    <img src={`/image/product${props.tumbler[id].id}.png`} width="100%" />
                 </div>
                 <div className="col-md-6">
-                    <h4>{props.title}</h4>
-                    <p>{props.content}</p>
-                    <p>{props.price}$</p>
+                    <h4>{props.tumbler[id].title}</h4>
+                    <p>{props.tumbler[id].content}</p>
+                    <p>{props.tumbler[id].price}$</p>
                     <button className="btn btn-danger">주문하기</button>
                 </div>
             </div>

@@ -5,7 +5,9 @@ import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 import.meta.env.BASE_URL
 import {ProductList, productData, ProductDetail} from './product.data.jsx'
 import CustomNavbar from './navbar.jsx'
-import { Routes, Route, Link} from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom';
+import About  from './about/about.jsx';
+import Event  from './pages/event.jsx';
 import bg from './assets/image/main-bg.png';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,14 +16,13 @@ function App() {
   const [count, setCount] = useState(0)
 
   let [tumbler] = useState(productData);
+  let navigate = useNavigate();
 
   return (
 
       <div className="App">
 
           <CustomNavbar/>
-          
-
 
           <Routes>
               <Route path={"/"} element={
@@ -50,7 +51,16 @@ function App() {
                       </Container>
                   </div>
               } />
-              <Route path={"/detail"} element={<ProductDetail/>} />
+              <Route path={"/detail/:id"} element={<ProductDetail tumbler={tumbler}/>} />
+              {/*<Route path={"*"} element={<ERROR/>} />*/}
+              <Route path={"/about"} element={<About/>}>
+                  <Route path={"member"} element={<div>멤버정보</div>} />
+                  <Route path={"location"} element={<div>위치정보</div>} />
+              </Route>
+              <Route path={"/event"} element={<Event/>}>
+                  <Route path={"one"} element={<div>첫 주문시 양배추즙 서비스</div>} />
+                  <Route path={"two"} element={<div>생일기념 쿠폰받기</div>} />
+              </Route>
           </Routes>
 
       </div>

@@ -1,7 +1,9 @@
 import {Col, Container, Nav, Navbar} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function CustomNavbar(){
+    let navigate = useNavigate();
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -9,7 +11,7 @@ function CustomNavbar(){
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
                         <Link to={"/"}>홈</Link>
                         <Nav.Link href="#link">Cart</Nav.Link>
                         {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
