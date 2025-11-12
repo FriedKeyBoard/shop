@@ -1,6 +1,7 @@
 import { Col } from 'react-bootstrap';
 import {Link, useParams} from "react-router-dom";
 import styled from "styled-components";
+import {useEffect, useState} from "react";
 
 let YellowBtn = styled.button`
   background: ${ props => props.bg};
@@ -59,7 +60,7 @@ function  ProductList({data}){
 function Product(props){
     return (
         <Col>
-            <Link to={"/detail"}>
+            <Link to={`/detail/${props.id}`}>
                 <img src={`/image/product${props.id}.png`} width="80%" alt={props.title}/>
             </Link>
             <h4>{props.title}</h4>
@@ -71,11 +72,34 @@ function Product(props){
 
 function ProductDetail(props){
 
+
     let {id} = useParams();
+    let [count , setCount] = useState(0);
+    let [alert, setAlert] = useState(true);
+    // let productContent = props.tumbler.find(x => x.id === id);
+
+    useEffect(()=>{
+        setTimeout(function(){
+            // if (alert === true){
+                setAlert(false);
+            // }else {
+            //     setAlert(true);
+            // }
+        }, 2000)
+    })
 
     return(
         <div className="container">
-            <YellowBtn bg={"blue"}>button</YellowBtn>
+            {/*<YellowBtn bg={"blue"}>button</YellowBtn>*/}
+            {/*{count}*/}
+            {/*<button onClick={()=>{setCount(count + 1)}}>button</button>*/}
+            {
+                alert === true
+                ? <div className={"alert alert-warning"}>
+                    2초내 구매시 할인
+                </div>
+                : null
+            }
             <div className="row">
                 <div className="col-md-6">
                     <img src={`/image/product${props.tumbler[id].id}.png`} width="100%" />
