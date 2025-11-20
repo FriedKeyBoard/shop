@@ -115,4 +115,5 @@ function ProductDetail(props){
     )
 }
 
+
 export {ProductList, productData, ProductDetail};
