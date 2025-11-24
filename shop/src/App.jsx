@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/Button';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
@@ -18,6 +18,8 @@ function App() {
 
   let [tumbler, setTumbler] = useState(productData);
   let navigate = useNavigate();
+  let [moreCount, setMoreCount] = useState(0);
+  let [loading, setLoading] = useState(false);
 
   return (
 
@@ -50,16 +52,47 @@ function App() {
                               {/*</Col>*/}
                           </Row>
                       </Container>
-                      <button onClick={() => {
-                        axios.get('https://codingapple1.github.io/shop/data2.json')
-                        .then((result)=>{
-                            console.log(result.data);
-                            setTumbler(prev => ([...prev, ...result.data]));
-                        })
-                        .catch(()=>{
-                            console.log('요청 실패')
-                        })
-                      }}>button</button>
+                      {
+                      moreCount < 2 ?
+                          <button onClick={() => {
+                              axios.get(`https://codingapple1.github.io/shop/data${moreCount+2}.json`)
+                                  .then((result)=>{
+                                      setLoading(true);
+                                      // console.log(result.data);
+                                      let copy = [...tumbler, ...result.data];
+                                      setTumbler(copy);
+                                      setMoreCount(moreCount+1);
+                                      // setTumbler(prev => ([...prev, ...result.data]));
+                                      setLoading(false);
+                                  })
+                                  .catch(()=>{
+                                      console.log('요청 실패');
+                                      setLoading(false);
+                                  })
+                          }}>button</button>
+                          : null
+                      }
+                      {
+                      loading === true
+                      ? <div className={"alert alert-warning"}>
+                          로딩중
+                      </div>
+                      : null
+                      }
+                      {/*<button onClick={() => {*/}
+                      {/*  axios.get(`https://codingapple1.github.io/shop/data${moreCount+2}.json`)*/}
+                      {/*  .then((result)=>{*/}
+                      {/*      console.log(result.data);*/}
+                      {/*      let copy = [...tumbler, ...result.data];*/}
+                      {/*      setTumbler(copy);*/}
+                      {/*      setMoreCount(moreCount+1);*/}
+                      {/*      // setTumbler(prev => ([...prev, ...result.data]));*/}
+                      {/*  })*/}
+                      {/*  .catch(()=>{*/}
+                      {/*      console.log('요청 실패')*/}
+                      {/*  })*/}
+                      {/*}}>button</button>*/}
+
                   </div>
               } />
               <Route path={"/detail/:id"} element={<ProductDetail tumbler={tumbler}/>} />

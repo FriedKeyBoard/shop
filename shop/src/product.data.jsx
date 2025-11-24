@@ -14,21 +14,21 @@ let YellowBtn = styled.button`
 
 let productData = [
     {
-        id : 1,
+        id : 0,
         title : "pink",
         content : "Born in France",
         price : 120000
     },
 
     {
-        id : 2,
+        id : 1,
         title : "rose",
         content : "Born in Seoul",
         price : 110000
     },
 
     {
-        id : 3,
+        id : 2,
         title : "lemon",
         content : "Born in the States",
         price : 130000
